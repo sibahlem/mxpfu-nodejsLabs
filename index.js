@@ -12,3 +12,4 @@ app.listen(PORT,()=>console.log("Server is running at port "+PORT));
 
 /* You have an Express server that has been configured to run at port 5000. 
 When you access the server with /user you can access the endpoints defined in routes/users.js.*/
+// Paste 'localhost:5000/user' onto browser
