@@ -6,19 +6,19 @@ let users = [
     {
         firstName: "John",
         lastName: "wick",
-        email:"johnwick@gamil.com",
+        email:"johnwick@gmail.com",
         DOB:"22-01-1990",
     },
     {
         firstName: "John",
         lastName: "smith",
-        email:"johnsmith@gamil.com",
+        email:"johnsmith@gmail.com",
         DOB:"21-07-1983",
     },
     {
         firstName: "Joyal",
         lastName: "white",
-        email:"joyalwhite@gamil.com",
+        email:"joyalwhite@gmail.com",
         DOB:"21-03-1989",
     },
 ];
@@ -36,6 +36,19 @@ router.get("/:email",(req,res)=>{
     // 'localhost:5000/user/johnsmith@gamil.com' to retrieve a specific user w their email.
 });
 
+// Me attempting to create an endpoint for getting a particular user by their lastName.
+router.get("/lastName/:lastName", (req,res)=>{
+    const lastName = req.params.lastName;
+    let filtered_lastName = users.filter((user) => user.lastName === lastName);
+    res.send(filtered_lastname);
+})
+
+/* Me attempting to create an endpoint for getting a particular user by their DOB.
+router.get("/:DOB", (req,res)=>{
+    const DOB = req.params.DOB;
+    let filtered_users = users.filter((user) => user.DOB === DOB);
+    res.send(filtered_users);
+})*/
 
 // POST request: Create a new user
 router.post("/",(req,res)=>{
@@ -49,21 +62,23 @@ router.put("/:email", (req, res) => { // To make updates in the data, you will u
   const email = req.params.email; //You should first look at the user with the specified email id and then modify it.
   let filtered_users = users.filter((user) => user.email === email);
   if (filtered_users.length > 0) {
-    let filtered_users = filtered_users[0];
+    let filtered_user = filtered_users[0];
     let DOB = req.query.DOB;
+    let firstName = req.query.firstName;
+    let lastName = req.query.lastName;
     //if the DOB has changed
     if(DOB) {
-        filtered_users.DOB = DOB
+        filtered_user.DOB = DOB
     }
     if(firstName) {
-        filtered_users.firstName = firstName
+        filtered_user.firstName = firstName
     }
     if(lastName) {
-        filtered_users.lastName = lastName
+        filtered_user.lastName = lastName
     }
-   users = users.filter((user) => user.email != email);
-   users.push(filtered_users);
-   res.send("User with the email " + email + " updated.");
+    users = users.filter((user) => user.email != email);
+    users.push(filtered_user);
+    res.send(`User with the email  ${email} updated.`);
   }
   else{
     res.send("Unable to find user!");
