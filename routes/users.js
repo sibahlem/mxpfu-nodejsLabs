@@ -25,7 +25,7 @@ let users = [
 
 // GET request: Retrieve all users
 router.get("/",(req,res)=>{
-    res.send(users);
+    res.send(JSON.stringify({users},null,4)); //res.send(users); To make the output more readable, you can use the JSON stringify method
 }); // You will first add an API endpoint, using the get method for getting the details of all users.
 
 // GET by specific ID request: Retrieve a single user with email ID
@@ -62,20 +62,21 @@ router.put("/:email", (req, res) => { // To make updates in the data, you will u
         filtered_users.lastName = lastName
     }
    users = users.filter((user) => user.email != email);
-   users.push(filtered_user);
+   users.push(filtered_users);
    res.send("User with the email " + email + " updated.");
   }
   else{
     res.send("Unable to find user!");
   }
 }); /* Run [curl --request PUT 'localhost:5000/user/johnsmith@gamil.com?DOB=1/1/1971'] in another terminal to implement Put request.
-        Then [curl localhost:5000/user/johnsmith@gamil.com] in the browser to view updates*/
+        Then [localhost:5000/user/johnsmith@gamil.com] in the browser to view updates*/
 
 
 // DELETE request: Delete a user by email ID
 router.delete("/:email", (req, res) => {
-  // Copy the code here
-  res.send("Yet to be implemented")//This line is to be replaced with actual return value
+    const email = req.params.email;
+    users = users.filter((user) => user.email != email);
+    res.send(`User with the email  ${email} deleted.`);
 });
 
 module.exports=router;
