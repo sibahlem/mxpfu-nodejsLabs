@@ -36,19 +36,30 @@ router.get("/:email",(req,res)=>{
     // 'localhost:5000/user/johnsmith@gamil.com' to retrieve a specific user w their email.
 });
 
-// Me attempting to create an endpoint for getting a particular user by their lastName.
+// Endpoint for getting a particular user by their lastName;
+// Filter `lastName` from the `users` array.
 router.get("/lastName/:lastName", (req,res)=>{
     const lastName = req.params.lastName;
     let filtered_lastName = users.filter((user) => user.lastName === lastName);
     res.send(filtered_lastname);
 })
 
-/* Me attempting to create an endpoint for getting a particular user by their DOB.
-router.get("/:DOB", (req,res)=>{
-    const DOB = req.params.DOB;
-    let filtered_users = users.filter((user) => user.DOB === DOB);
-    res.send(filtered_users);
-})*/
+// Endpoint for getting a particular user by their DOB;
+// Split the DOB and convert it to yyyy/mm/dd format & then sort it.
+function getDateFromString(strDate) {
+    let [dd,mm,yyyy] = strDate.split('-')
+    return new Date(yyyy+"/"+mm+"/"+dd);
+}
+    
+// console.log(sorted_users);
+router.get("/sort",(req,res)=>{
+    let sorted_users=users.sort(function(a, b) {
+        let d1 = getDateFromString(a.DOB);
+        let d2 = getDateFromString(b.DOB);
+            return d1-d2;
+          });
+    res.send(sorted_users);
+});
 
 // POST request: Create a new user
 router.post("/",(req,res)=>{
