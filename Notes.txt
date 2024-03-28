@@ -8,3 +8,6 @@ jsonwebtoken - This package helps in generating a JSON web token which we will u
 express-session - This package will help us to maintain the authentication for the session.
 
 These packages are defined in as dependencies in packages.json.
+
+run 'rm -rf node_modules' to remove node_modules 
+then npm install to install them again if you run into issues stating up the server
