@@ -11,3 +11,4 @@ These packages are defined in as dependencies in packages.json.
 
 run 'rm -rf node_modules' to remove node_modules 
 then npm install to install them again if you run into issues stating up the server
+BUT NEVER PUSH node_modules!!!
